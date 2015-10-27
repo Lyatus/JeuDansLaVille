@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<title>Le jeu dans ta mère</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<style>
+			body{
+				font-family: Sans-serif;
+			}
+			#text{
+				height:60%;
+				font-size: 3vh;
+			}
+			#input{
+				width:100%;
+				height:20%;
+				font-size: 12vh;
+				border: lightgrey 2px solid;
+			}
+			#previous, #next{
+				float:right;
+				width:50%;
+				height:20%;
+				font-size:9vw;
+				background-color:lightgrey;
+				border:none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="text"></div>
+		<input id="input" type="text" placeholder="Code"/><br/>
+		<input id="next" type="button" value="Suivant"/>
+		<input id="previous" type="button" value="Précédent"/>
+	</body>
+	<script type="text/javascript">
+		var textElement = document.getElementById('text');
+		var inputElement = document.getElementById('input');
+		var previousElement = document.getElementById('previous');
+		var nextElement = document.getElementById('next');
+		var pagen = 0;
+		var page = [
+			{
+				'text':'J’y suis retournée. Encore. Après être passée rendre mes livres, j’ai voulu de nouveau parcourir ce chemin, que je connais par coeur.',
+				'code':['test','test2']
+			},
+			{
+				'text':'Je passe souvent sur ce pont mais ce n’est jamais vraiment pareil. Des fois il y a des poissons, d’autres fois il n’y en a pas. Des fois je marche seule, d’autres fois pas.'
+			}
+		];
+		function displayPage(){
+			textElement.innerHTML = page[pagen].text;
+			inputElement.value = ''; // Clear input
+			inputElement.style.visibility = (page[pagen].code)?'visible':'hidden';
+			previousElement.style.visibility = (pagen>0)?'visible':'hidden';
+			nextElement.style.visibility = (pagen<page.length-1)?'visible':'hidden';
+		}
+		function input(e){if(e.keyCode==13)next();}
+		function previous(){
+			pagen = Math.max(0,pagen-1);
+			displayPage();
+		}
+		function next(){
+			var code = page[pagen].code;
+			if(code){ // A code is needed to pass this page
+				if(typeof code != 'object') code = [code]; // Single element gets put into array
+				if(code.indexOf(inputElement.value.toLowerCase())<0){
+					inputElement.style.backgroundColor = 'red';
+					setTimeout(function(){inputElement.style.backgroundColor = 'white';},500);
+					return;
+				}
+			}
+			pagen = Math.min(page.length-1,pagen+1);
+			displayPage();
+		}
+		inputElement.onkeydown = input;
+		previousElement.onclick = previous;
+		nextElement.onclick = next;
+		displayPage();
+	</script>
+</html>

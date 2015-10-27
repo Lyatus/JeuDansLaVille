@@ -79,7 +79,7 @@
 				if(typeof code != 'object') code = [code]; // Single element gets put into array
 				if(code.indexOf(inputElement.value.toLowerCase())<0){
 					inputElement.style.backgroundColor = 'red';
-					setTimeout(function(){inputElement.style.backgroundColor = 'white';},500);
+					setTimeout(function(){inputElement.style.backgroundColor = 'white';},250);
 					return;
 				}
 			}

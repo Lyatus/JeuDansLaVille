@@ -3,36 +3,46 @@
 		<title>Le jeu dans ta mère</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<style>
-			body{
-				font-family: Sans-serif;
+			body{font-family: Sans-serif;}
+			#image{
+				min-width:75%;
+				max-width:75%;
+				margin: auto;
 			}
 			#text{
-				height:60%;
 				font-size: 3vh;
+				margin:8px;
 			}
+			input{position:absolute;}
 			#input{
 				width:100%;
-				height:20%;
-				font-size: 12vh;
+				height:15%;
+				font-size: 9vw;
 				border: lightgrey 2px solid;
+				bottom:15%;
+				left:0px;
 			}
 			#previous, #next{
-				float:right;
 				width:50%;
-				height:20%;
+				height:15%;
 				font-size:9vw;
 				background-color:lightgrey;
 				border:none;
+				bottom:0px;
 			}
+			#previous{left:0px;}
+			#next{right:0px;}
 		</style>
 	</head>
 	<body>
+		<img id="image"/>
 		<div id="text"></div>
 		<input id="input" type="text" placeholder="Code"/><br/>
-		<input id="next" type="button" value="Suivant"/>
 		<input id="previous" type="button" value="Précédent"/>
+		<input id="next" type="button" value="Suivant"/>
 	</body>
 	<script type="text/javascript">
+		var imageElement = document.getElementById('image');
 		var textElement = document.getElementById('text');
 		var inputElement = document.getElementById('input');
 		var previousElement = document.getElementById('previous');
@@ -40,14 +50,18 @@
 		var pagen = 0;
 		var page = [
 			{
+				'image':'img0.jpg',
 				'text':'J’y suis retournée. Encore. Après être passée rendre mes livres, j’ai voulu de nouveau parcourir ce chemin, que je connais par coeur.',
 				'code':['test','test2']
 			},
 			{
+				'image':'img4.jpg',
 				'text':'Je passe souvent sur ce pont mais ce n’est jamais vraiment pareil. Des fois il y a des poissons, d’autres fois il n’y en a pas. Des fois je marche seule, d’autres fois pas.'
 			}
 		];
 		function displayPage(){
+			imageElement.src = (page[pagen].image)?page[pagen].image:'';
+			imageElement.style.display = (page[pagen].image)?'block':'none';
 			textElement.innerHTML = page[pagen].text;
 			inputElement.value = ''; // Clear input
 			inputElement.style.visibility = (page[pagen].code)?'visible':'hidden';

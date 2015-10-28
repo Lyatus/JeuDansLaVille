@@ -98,7 +98,9 @@
 			inputElement.value = ''; // Clear input
 			inputElement.style.visibility = (page[pagen].code)?'visible':'hidden';
 			previousElement.style.visibility = (pagen>0)?'visible':'hidden';
-			nextElement.style.visibility = (pagen<page.length-1)?'visible':'hidden';
+			nextElement.style.visibility = 'hidden';
+			if(pagen<page.length-1)
+				setTimeout(function(){nextElement.style.visibility = 'visible';},5000);
 		}
 		function input(e){if(e.keyCode==13)next();}
 		function previous(){

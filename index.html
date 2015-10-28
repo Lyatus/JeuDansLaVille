@@ -28,7 +28,7 @@
 				bottom:10%;
 				left:0px;
 			}
-			#previous, #next, #reset{
+			#previous, #presentation, #next, #reset{
 				width:50%;
 				height:10%;
 				font-size:9vw;
@@ -36,7 +36,7 @@
 				border:none;
 				bottom:0px;
 			}
-			#previous{left:0px;}
+			#previous, #presentation{left:0px;}
 			#next, #reset{right:0px;}
 		</style>
 	</head>
@@ -45,6 +45,7 @@
 		<div id="text"></div>
 		<input id="input" type="text" placeholder="Code"/><br/>
 		<input id="previous" type="button" value="Précédent"/>
+		<input id="presentation" type="button" value="Présentation"/>
 		<input id="next" type="button" value="Suivant"/>
 		<input id="reset" type="button" value="Recommencer"/>
 	</body>
@@ -53,6 +54,7 @@
 		var textElement = document.getElementById('text');
 		var inputElement = document.getElementById('input');
 		var previousElement = document.getElementById('previous');
+		var presentationElement = document.getElementById('presentation');
 		var nextElement = document.getElementById('next');
 		var resetElement = document.getElementById('reset');
 		var pagen, pagemax;
@@ -113,6 +115,7 @@
 			inputElement.value = ''; // Clear input
 			inputElement.style.visibility = (page[pagen].code)?'visible':'hidden';
 			previousElement.style.visibility = (pagen>0)?'visible':'hidden';
+			presentationElement.style.visibility = (pagen==0)?'visible':'hidden';
 			resetElement.style.visibility = (lastPage)?'visible':'hidden';
 			if(newPage){
 				nextElement.style.visibility = 'hidden';
@@ -125,6 +128,9 @@
 		function previous(){
 			pagen = Math.max(0,pagen-1);
 			displayPage();
+		}
+		function presentation(){
+			location.href = 'https://docs.google.com/presentation/d/1hNOl5_CancGOe7wV16Mr2JmswW-NCdGBRhOlhDyZEK4/pub?start=false&loop=false';
 		}
 		function next(){
 			var code = page[pagen].code;
@@ -146,6 +152,7 @@
 		}
 		inputElement.onkeydown = input;
 		previousElement.onclick = previous;
+		presentationElement.onclick = presentation;
 		nextElement.onclick = next;
 		resetElement.onclick = reset;
 		reset();

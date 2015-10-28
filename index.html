@@ -28,7 +28,7 @@
 				bottom:10%;
 				left:0px;
 			}
-			#previous, #next{
+			#previous, #next, #reset{
 				width:50%;
 				height:10%;
 				font-size:9vw;
@@ -37,7 +37,7 @@
 				bottom:0px;
 			}
 			#previous{left:0px;}
-			#next{right:0px;}
+			#next, #reset{right:0px;}
 		</style>
 	</head>
 	<body>
@@ -46,6 +46,7 @@
 		<input id="input" type="text" placeholder="Code"/><br/>
 		<input id="previous" type="button" value="Précédent"/>
 		<input id="next" type="button" value="Suivant"/>
+		<input id="reset" type="button" value="Recommencer"/>
 	</body>
 	<script type="text/javascript">
 		var imageElement = document.getElementById('image');
@@ -53,7 +54,8 @@
 		var inputElement = document.getElementById('input');
 		var previousElement = document.getElementById('previous');
 		var nextElement = document.getElementById('next');
-		var pagen = 0, pagemax = -1;
+		var resetElement = document.getElementById('reset');
+		var pagen, pagemax;
 		var page = [
 			{'text':'Allez, j’y retourne. Encore. Comme j’ai rendu mes livres, je vais en profiter pour parcourir de nouveau ce chemin, que je connais par coeur.'},
 			{'text':'Je passe souvent sur ce pont mais ce n’est jamais vraiment pareil. Parfois il y a des poissons, d’autres fois il n’y en a pas. Parfois je marche seule, d’autres fois pas.'},
@@ -107,6 +109,7 @@
 			inputElement.value = ''; // Clear input
 			inputElement.style.visibility = (page[pagen].code)?'visible':'hidden';
 			previousElement.style.visibility = (pagen>0)?'visible':'hidden';
+			resetElement.style.visibility = (lastPage)?'visible':'hidden';
 			if(newPage){
 				nextElement.style.visibility = 'hidden';
 				if(!lastPage)
@@ -132,9 +135,15 @@
 			pagen = Math.min(page.length-1,pagen+1);
 			displayPage();
 		}
+		function reset(){
+			pagen = 0;
+			pagemax = -1;
+			displayPage();
+		}
 		inputElement.onkeydown = input;
 		previousElement.onclick = previous;
 		nextElement.onclick = next;
-		displayPage();
+		resetElement.onclick = reset;
+		reset();
 	</script>
 </html>

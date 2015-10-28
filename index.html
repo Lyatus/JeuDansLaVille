@@ -50,7 +50,7 @@
 		var inputElement = document.getElementById('input');
 		var previousElement = document.getElementById('previous');
 		var nextElement = document.getElementById('next');
-		var pagen = 0;
+		var pagen = 0, pagemax = -1;
 		var page = [
 			{'text':'Allez, j’y retourne. Encore. Comme j’ai rendu mes livres, je vais en profiter pour parcourir de nouveau ce chemin, que je connais par coeur.'},
 			{'text':'Je passe souvent sur ce pont mais ce n’est jamais vraiment pareil. Parfois il y a des poissons, d’autres fois il n’y en a pas. Parfois je marche seule, d’autres fois pas.'},
@@ -95,15 +95,21 @@
 			{'text':'Quand je finis ma balade avant de rentrer, j’aime passer sur le pont de St Cybard, et j’essaie de retrouver le chemin que j’ai parcouru. Je ne peux pas tout distinguer à travers les arbres, et souvent je me rends compte que c’est un peu comme si je contemplais ma mémoire. Je suis vieille maintenant, ça doit faire mille ans que je vis à Angoulême, et mes souvenirs commencent à s’estomper.'}
 		];
 		function displayPage(){
+			var newPage = (pagen>pagemax);
+			var lastPage = pagen==page.length-1
+			pagemax = Math.max(pagen,pagemax);
 			imageElement.src = (page[pagen].image)?page[pagen].image:'';
 			imageElement.style.display = (page[pagen].image)?'block':'none';
 			textElement.innerHTML = page[pagen].text;
 			inputElement.value = ''; // Clear input
 			inputElement.style.visibility = (page[pagen].code)?'visible':'hidden';
 			previousElement.style.visibility = (pagen>0)?'visible':'hidden';
-			nextElement.style.visibility = 'hidden';
-			if(pagen<page.length-1)
-				setTimeout(function(){nextElement.style.visibility = 'visible';},5000);
+			if(newPage){
+				nextElement.style.visibility = 'hidden';
+				if(!lastPage)
+					setTimeout(function(){nextElement.style.visibility = 'visible';},5000);
+			}
+			else nextElement.style.visibility = (!lastPage)?'visible':'hidden';
 		}
 		function input(e){if(e.keyCode==13)next();}
 		function previous(){

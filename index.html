@@ -111,7 +111,7 @@
 			pagemax = Math.max(pagen,pagemax);
 			imageElement.src = (page[pagen].image)?page[pagen].image:'';
 			imageElement.style.display = (page[pagen].image)?'block':'none';
-			textElement.innerHTML = page[pagen].text;
+			textElement.innerHTML = (page[pagen].text)?page[pagen].text:'';
 			inputElement.value = ''; // Clear input
 			inputElement.style.visibility = (page[pagen].code)?'visible':'hidden';
 			previousElement.style.visibility = (pagen>0)?'visible':'hidden';

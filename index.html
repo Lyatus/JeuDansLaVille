@@ -136,7 +136,7 @@
 			var code = page[pagen].code;
 			if(code){ // A code is needed to pass this page
 				if(typeof code != 'object') code = [code]; // Single element gets put into array
-				if(code.indexOf(inputElement.value.toLowerCase())<0){
+				if(code.indexOf(inputElement.value.trim().toLowerCase())<0){
 					inputElement.style.borderColor = 'red';
 					setTimeout(function(){inputElement.style.borderColor = 'lightgrey';},250);
 					return;
